@@ -19,10 +19,10 @@ class Layer:
 class ReLU(Layer):
     def forward(self, input: Tensor) -> Tensor:
         self.input = input
-        return input * (input > 0)
+        return np.maximum(input, 0)
 
     def backward(self, gradient: Tensor) -> Tensor:
-        return 1.0 * (gradient > 0)
+        return gradient * (gradient >= 0)
 
 
 class Sigmoid(Layer):
@@ -38,8 +38,8 @@ class Sigmoid(Layer):
 class Linear(Layer):
     def __init__(self, n_input: int, n_output: int) -> None:
         super().__init__()
-        self.parameters["weights"] = np.random.randn(n_input, n_output) - 0.5
-        self.parameters["bias"] = np.random.randn(n_output) - 0.5
+        self.parameters["weights"] = np.random.randn(n_input, n_output)
+        self.parameters["bias"] = np.random.randn(n_output)
 
     def forward(self, input: Tensor) -> Tensor:
         """
