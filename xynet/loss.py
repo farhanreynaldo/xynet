@@ -17,3 +17,11 @@ class SSE(Loss):
 
     def gradient(self, pred: Tensor, actual: Tensor) -> float:
         return 2 * (pred - actual)
+
+
+class MSE(Loss):
+    def loss(self, pred: Tensor, actual: Tensor) -> float:
+        return np.mean((pred - actual) ** 2)
+
+    def gradient(self, pred: Tensor, actual: Tensor) -> float:
+        return 2 * (pred - actual)
